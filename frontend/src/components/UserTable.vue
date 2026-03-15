@@ -4,8 +4,10 @@ import { useUsersApi } from "../api/useUsersApi";
 import Table from "./Table/Table.vue";
 import Button from "./Button.vue";
 import { RoleName, type User } from "../types/user";
+import { useAuthStore } from "../store/useAuthStore";
 
-const { fetchUsers } = useUsersApi();
+const { fetchUsers, deleteUser } = useUsersApi();
+const authStore = useAuthStore();
 
 const users = ref<User[]>([]);
 
@@ -23,6 +25,20 @@ const columns = computed(() => {
   ];
 });
 
+const handleDeleteUser = async (user: User) => {
+  if (authStore.user?.id === user.id) {
+    return;
+  }
+
+  const result = await deleteUser(user.id);
+
+  if (!result) {
+    return;
+  }
+
+  users.value = users.value.filter((value) => value.id !== user.id);
+};
+
 onBeforeMount(async () => {
   users.value = (await fetchUsers()) ?? [];
 });
@@ -30,7 +46,7 @@ onBeforeMount(async () => {
 
 <template>
   <Table :data="users" :columns="columns">
-    <template #actions="{ value }">
+    <template #actions="{ value }: { value: User }">
       <Button
         variant="ghost"
         size="sm"
@@ -43,7 +59,8 @@ onBeforeMount(async () => {
         v-if="$can(RoleName.ADMIN)"
         variant="danger"
         size="sm"
-        @click="() => console.log('Delete', value)"
+        :disabled="authStore.user?.id === value.id"
+        @click="handleDeleteUser(value)"
       >
         Delete
       </Button>

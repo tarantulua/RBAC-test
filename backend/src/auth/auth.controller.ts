@@ -27,7 +27,7 @@ export class AuthController {
     }
 
     const user = await this.authService.getUserWithPermissions(userId);
-    if (!user) throw new UnauthorizedException();
+    if (!user) throw new UnauthorizedException('User not found');
 
     session.userId = user.id;
 
