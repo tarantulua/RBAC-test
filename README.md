@@ -30,3 +30,11 @@ docker exec -it auth_api pnpm run seed
 
 - `backend/`: NestJS API, authentication, RBAC, PostgreSQL repository layer
 - `frontend/`: Vue 3 + TypeScript UI with role and user management
+
+## Future improvements
+
+1. Create a real modal to add/edit users & roles (currently just placeholders to show that RBAC is working).
+
+2. Restrict Editor possibility to update Admin users.
+
+3. Make Permission take effect on real application (currently doing nothing).
