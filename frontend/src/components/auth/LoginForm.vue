@@ -9,6 +9,10 @@ const { handleLogin } = useAuthStore();
 
 const userId = ref<number | null>(null);
 
+const isUserIdValid = computed(() => {
+  return typeof userId.value === "number";
+});
+
 const userOptions = computed(() => {
   return PRE_SEEDED_USERS.map((user) => ({
     label: `${user.name}`,
@@ -17,11 +21,11 @@ const userOptions = computed(() => {
 });
 
 const handleSubmit = () => {
-  if (typeof userId.value !== "number") {
+  if (!isUserIdValid.value) {
     return;
   }
 
-  handleLogin(userId.value);
+  handleLogin(userId.value!);
 };
 </script>
 
@@ -37,7 +41,7 @@ const handleSubmit = () => {
       />
     </div>
 
-    <Button type="submit" :disabled="!userId">Login</Button>
+    <Button type="submit" :disabled="!isUserIdValid">Login</Button>
   </form>
 </template>
 
