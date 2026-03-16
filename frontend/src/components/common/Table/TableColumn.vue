@@ -27,7 +27,7 @@ const getArrayItemValue = (item: any, key: string) => {
       <li
         class="table__list-item"
         v-for="(item, index) in columnValue"
-        :key="item.id || index"
+        :key="item.id ?? index"
       >
         {{ getArrayItemValue(item, column.key) }}
       </li>

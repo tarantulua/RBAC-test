@@ -2,8 +2,8 @@
 import { computed } from "vue";
 import TableHeader from "./TableHeader.vue";
 import TableRow from "./TableRow.vue";
-import { useAuthStore } from "../../store/useAuthStore";
-import type { TableColumn } from "../../types/table";
+import { useAuthStore } from "../../../store/useAuthStore";
+import type { TableColumn } from "../../../types/table";
 
 export interface TableProps<T> {
   data: T[];
@@ -23,7 +23,7 @@ const visibleColumns = computed(() => {
 
 <template>
   <div class="table-wrapper">
-    <table v-if="data" class="table">
+    <table v-if="data?.length" class="table">
       <TableHeader :columns="visibleColumns" />
 
       <tbody class="table__body">

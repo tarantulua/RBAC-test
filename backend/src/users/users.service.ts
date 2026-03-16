@@ -20,8 +20,8 @@ export class UsersService {
   findAllUsers(role: RoleName) {
     const GET_USERS_BY_ROLE_MAP: Record<RoleName, () => Promise<User[]>> = {
       [RoleName.VIEWER]: () => this.usersRepository.findAll(),
-      [RoleName.EDITOR]: () => this.usersRepository.findAllWithPermissions(),
-      [RoleName.ADMIN]: () => this.usersRepository.findAllWithPermissions(),
+      [RoleName.EDITOR]: () => this.usersRepository.findAllWithRoles(),
+      [RoleName.ADMIN]: () => this.usersRepository.findAllWithRoles(),
     };
 
     return GET_USERS_BY_ROLE_MAP[role]();

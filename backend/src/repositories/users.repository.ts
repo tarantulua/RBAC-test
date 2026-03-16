@@ -10,6 +10,10 @@ export class UsersRepository {
     private readonly userRepo: Repository<User>,
   ) {}
 
+  findAllWithRoles() {
+    return this.userRepo.find({ relations: ['role'] });
+  }
+
   findAllWithPermissions() {
     return this.userRepo.find({
       relations: ['role', 'role.permissions'],
@@ -38,8 +42,15 @@ export class UsersRepository {
     return this.userRepo.create(user);
   }
 
-  save(user: User) {
-    return this.userRepo.save(user);
+  async save(user: User) {
+    const savedUser = await this.userRepo.save(user);
+
+    const userWithRole = await this.userRepo.findOne({
+      where: { id: savedUser.id },
+      relations: ['role'],
+    });
+
+    return userWithRole ?? savedUser;
   }
 
   remove(user: User) {

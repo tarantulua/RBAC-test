@@ -1,3 +1,5 @@
+import type { Optional } from "./common";
+
 export const RoleName = {
   ADMIN: "admin",
   EDITOR: "editor",
@@ -29,6 +31,9 @@ export interface User {
   status: string;
 }
 
+export type UserFormValue = Omit<Optional<User, "id">, "role"> & {
+  role: number;
+};
 export interface Role {
   id: number;
   name: RoleName;

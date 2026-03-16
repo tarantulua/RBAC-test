@@ -10,6 +10,10 @@ export class PermissionsRepository {
     private readonly permissionRepo: Repository<Permission>,
   ) {}
 
+  findAll() {
+    return this.permissionRepo.find();
+  }
+
   findByIds(ids: number[]) {
     return this.permissionRepo.findBy({ id: In(ids) });
   }

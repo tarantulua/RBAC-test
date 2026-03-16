@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import RoleTable from "../components/RoleTable.vue";
-import UserTable from "../components/UserTable.vue";
-import Button from "../components/Button.vue";
+import Button from "../components/common/Button.vue";
+import DashboardRolesSection from "../components/dashboard/DashboardRolesSection.vue";
+import DashboardUsersSection from "../components/dashboard/DashboardUsersSection.vue";
 import { useAuthStore } from "../store/useAuthStore";
-import { RoleName } from "../types/user";
 
 const authStore = useAuthStore();
-
-const onAddUser = () => {
-  console.log("Add user clicked");
-  // TODO: Open add user modal or navigate to add user form
-};
 </script>
 
 <template>
@@ -30,31 +24,9 @@ const onAddUser = () => {
     </header>
 
     <div class="dashboard__content">
-      <section class="dashboard__block">
-        <div class="dashboard__block-header">
-          <h2 class="dashboard__block-title">Users</h2>
-
-          <Button
-            v-if="$can(RoleName.ADMIN)"
-            variant="secondary"
-            @click="onAddUser"
-            >Add user</Button
-          >
-        </div>
-
-        <UserTable />
-      </section>
-
-      <section
-        class="dashboard__block"
-        v-if="$can([RoleName.ADMIN, RoleName.EDITOR])"
-      >
-        <div class="dashboard__block-header">
-          <h2 class="dashboard__block-title">Roles</h2>
-        </div>
-
-        <RoleTable />
-      </section>
+      <DashboardUsersSection />
+      
+      <DashboardRolesSection />
     </div>
   </section>
 </template>
@@ -118,28 +90,5 @@ const onAddUser = () => {
     gap: 1.25rem;
   }
 
-  .dashboard__block {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    background: var(--panel-bg, #fff);
-    border: 1px solid var(--border, #e5e7eb);
-    border-radius: 0.7rem;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-
-    .dashboard__block-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .dashboard__block-title {
-      margin: 0 0 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 650;
-      color: var(--subtitle-color, #334155);
-    }
-  }
 }
 </style>

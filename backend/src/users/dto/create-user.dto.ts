@@ -1,4 +1,11 @@
-import { IsString, IsEmail, IsNumber, MinLength, IsInt } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  IsNumber,
+  MinLength,
+  IsInt,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -9,6 +16,7 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
+  @IsNotEmpty({ message: 'Status should not be empty' })
   status: string;
 
   @IsNumber()

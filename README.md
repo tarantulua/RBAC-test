@@ -33,8 +33,8 @@ docker exec -it auth_api pnpm run seed
 
 ## Future improvements
 
-1. Create a real modal to add/edit users & roles (currently just placeholders to show that RBAC is working).
+1. Restrict Editor possibility to update Admin users.
 
-2. Restrict Editor possibility to update Admin users.
+2. Make Permission take effect on real application (currently doing nothing).
 
-3. Make Permission take effect on real application (currently doing nothing).
+3. Error handling

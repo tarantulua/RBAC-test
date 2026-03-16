@@ -1,4 +1,4 @@
-import type { User } from "../types/user";
+import type { User, UserFormValue } from "../types/user";
 import { apiClient } from "./apiClient";
 
 const BASE_URL = "/api/users";
@@ -22,8 +22,46 @@ export const useUsersApi = () => {
     }
   };
 
+  const createUser = async (userData: UserFormValue): Promise<User | null> => {
+    try {
+      const { role, ...other } = userData;
+
+      const { data } = await apiClient.post<User>(BASE_URL, {
+        ...other,
+        roleId: role,
+      });
+
+      return data;
+    } catch {
+      return null;
+    }
+  };
+
+  const updateUser = async (
+    id: number,
+    userData: UserFormValue,
+  ): Promise<User | null> => {
+    try {
+      const { id: userId, role, ...other } = userData;
+
+      const { data } = await apiClient.put<User>(
+        `${BASE_URL}/${id ?? userId}`,
+        {
+          ...other,
+          roleId: role,
+        },
+      );
+
+      return data;
+    } catch {
+      return null;
+    }
+  };
+
   return {
     fetchUsers,
+    createUser,
     deleteUser,
+    updateUser,
   };
 };

@@ -4,6 +4,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { Permission } from 'src/entities/permission.entity';
 import { Role } from 'src/entities/role.entity';
 import { User } from 'src/entities/user.entity';
+import { PermissionsModule } from 'src/permissions/permissions.module';
 import { RolesModule } from 'src/roles/roles.module';
 import { UsersModule } from 'src/users/users.module';
 
@@ -17,6 +18,7 @@ import { UsersModule } from 'src/users/users.module';
     }),
     UsersModule,
     RolesModule,
+    PermissionsModule,
     AuthModule,
   ],
 })

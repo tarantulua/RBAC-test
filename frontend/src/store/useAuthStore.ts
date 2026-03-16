@@ -8,13 +8,31 @@ export const useAuthStore = defineStore("auth", {
   state: (): AuthStore => ({
     user: null,
     isInitialized: false,
+    uiFlags: {
+      login: {
+        isLoading: false,
+        error: null,
+      },
+      fetchMe: {
+        isLoading: false,
+        error: null,
+      },
+      logout: {
+        isLoading: false,
+        error: null,
+      },
+    },
   }),
   getters: {},
   actions: {
     async handleLogin(userId?: string) {
       const { fetchMe, login } = useAuthApi();
+      const uiFlagKey = userId ? "login" : "fetchMe";
 
       try {
+        this.uiFlags[uiFlagKey].isLoading = true;
+        this.uiFlags[uiFlagKey].error = null;
+
         let data;
 
         if (userId) {
@@ -31,7 +49,10 @@ export const useAuthStore = defineStore("auth", {
 
         router.replace({ name: "dashboard" });
       } catch (error) {
+        this.uiFlags[uiFlagKey].error =
+          error instanceof Error ? error.message : "An unknown error occurred.";
       } finally {
+        this.uiFlags[uiFlagKey].isLoading = false;
         this.isInitialized = true;
       }
     },
@@ -40,11 +61,17 @@ export const useAuthStore = defineStore("auth", {
       const { logout } = useAuthApi();
 
       try {
+        this.uiFlags.logout.isLoading = true;
+        this.uiFlags.logout.error = null;
+
         await logout();
         this.user = null;
         router.replace({ name: "login" });
       } catch (error) {
-        console.error("Logout failed:", error);
+        this.uiFlags.logout.error =
+          error instanceof Error ? error.message : "Logout failed.";
+      } finally {
+        this.uiFlags.logout.isLoading = false;
       }
     },
 
