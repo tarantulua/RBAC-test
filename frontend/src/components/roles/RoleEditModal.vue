@@ -45,16 +45,19 @@ watch(
 );
 
 const togglePermission = (permissionId: number, checked: boolean) => {
-  if (checked) {
-    if (!selectedPermissionIds.value.includes(permissionId)) {
-      selectedPermissionIds.value.push(permissionId);
-    }
+  if (!checked) {
+    selectedPermissionIds.value = selectedPermissionIds.value.filter(
+      (id) => id !== permissionId,
+    );
+
     return;
   }
 
-  selectedPermissionIds.value = selectedPermissionIds.value.filter(
-    (id) => id !== permissionId,
-  );
+  if (selectedPermissionIds.value.includes(permissionId)) {
+    return;
+  }
+
+  selectedPermissionIds.value.push(permissionId);
 };
 
 onBeforeMount(async () => {
