@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsNumber, MinLength, IsInt } from 'class-validator';
+import { IsString, IsEmail, MinLength, IsInt } from 'class-validator';
 
 export class UpdateUserDto {
   @IsString()
@@ -11,7 +11,6 @@ export class UpdateUserDto {
   @IsString()
   status: string;
 
-  @IsNumber()
   @IsInt()
   roleId: number;
 }

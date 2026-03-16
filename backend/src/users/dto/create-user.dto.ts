@@ -1,7 +1,6 @@
 import {
   IsString,
   IsEmail,
-  IsNumber,
   MinLength,
   IsInt,
   IsNotEmpty,
@@ -19,7 +18,6 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Status should not be empty' })
   status: string;
 
-  @IsNumber()
   @IsInt()
   roleId: number;
 }

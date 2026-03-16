@@ -18,7 +18,7 @@ export type UserPermissionsSlug =
   (typeof UserPermissionsSlug)[keyof typeof UserPermissionsSlug];
 
 export interface UserPermission {
-  id: string;
+  id: number;
   slug: UserPermissionsSlug;
   description: string;
 }

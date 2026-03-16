@@ -4,7 +4,7 @@ A role-based access control (RBAC) demo app with NestJS backend and Vue.js front
 
 This repository implements:
 
-- User authentication (JWT + roles)
+- User authentication with server-side sessions
 - Permissions and roles management
 - User and role management APIs
 - Vue UI with login, dashboard, users and roles tables
@@ -13,7 +13,7 @@ This repository implements:
 ## Quick start
 
 1. Setup env variables
-Use `.env.example` as an example
+   Use `.env.example` as an example
 
 2. Start all services:
 
@@ -27,7 +27,7 @@ docker compose up --build
 docker exec -it auth_api pnpm run seed
 ```
 
-3. Visit the frontend at `http://localhost:4000` (or configured port).
+3. Visit the frontend at `http://localhost:3000` (or configured port). Backend is available on `http://localhost:4000`
 
 ## Projects
 

@@ -25,7 +25,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   getters: {},
   actions: {
-    async handleLogin(userId?: string) {
+    async handleLogin(userId?: number) {
       const { fetchMe, login } = useAuthApi();
       const uiFlagKey = userId ? "login" : "fetchMe";
 
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("auth", {
 
         let data;
 
-        if (userId) {
+        if (userId != null) {
           data = await login(userId);
         } else {
           data = await fetchMe();

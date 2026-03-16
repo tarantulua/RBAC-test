@@ -11,7 +11,7 @@ export const useAuthApi = () => {
     }
   };
 
-  const login = async (userId: string): Promise<User | null> => {
+  const login = async (userId: number): Promise<User | null> => {
     try {
       const { data } = await apiClient.post("/api/auth/select", { userId });
       return data;
