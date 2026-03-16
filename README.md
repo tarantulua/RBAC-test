@@ -12,7 +12,10 @@ This repository implements:
 
 ## Quick start
 
-1. Start all services:
+1. Setup env variables
+Use `.env.example` as an example
+
+2. Start all services:
 
 ```bash
 docker compose up --build
