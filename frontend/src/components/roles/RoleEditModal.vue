@@ -32,7 +32,7 @@ const mapRolePermissions = (role?: Role): number[] => {
   }
 
   return role.permissions.map((permission) =>
-    typeof permission === "number" ? permission : Number(permission.id),
+    typeof permission === "number" ? permission : permission.id,
   );
 };
 
@@ -96,10 +96,10 @@ const onSave = () => {
         >
           <input
             type="checkbox"
-            :checked="selectedPermissionIds.includes(Number(permission.id))"
+            :checked="selectedPermissionIds.includes(permission.id)"
             @change="
               togglePermission(
-                Number(permission.id),
+                permission.id,
                 ($event.target as HTMLInputElement).checked,
               )
             "

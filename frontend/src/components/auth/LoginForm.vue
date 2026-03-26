@@ -7,7 +7,11 @@ import { PRE_SEEDED_USERS } from "../../constants/user";
 
 const { handleLogin } = useAuthStore();
 
-const userId = ref<string>("");
+const userId = ref<number | null>(null);
+
+const isUserIdValid = computed(() => {
+  return typeof userId.value === "number";
+});
 
 const userOptions = computed(() => {
   return PRE_SEEDED_USERS.map((user) => ({
@@ -15,10 +19,18 @@ const userOptions = computed(() => {
     value: user.id,
   }));
 });
+
+const handleSubmit = () => {
+  if (!isUserIdValid.value) {
+    return;
+  }
+
+  handleLogin(userId.value!);
+};
 </script>
 
 <template>
-  <form class="login-form" @submit.prevent="handleLogin(userId)">
+  <form class="login-form" @submit.prevent="handleSubmit">
     <div class="login-form__field">
       <label class="login-form__label" for="userId">Select user</label>
       <Select
@@ -29,7 +41,7 @@ const userOptions = computed(() => {
       />
     </div>
 
-    <Button type="submit" :disabled="!userId">Login</Button>
+    <Button type="submit" :disabled="!isUserIdValid">Login</Button>
   </form>
 </template>
 
@@ -50,7 +62,5 @@ const userOptions = computed(() => {
     font-weight: 600;
     color: var(--label-color, #334155);
   }
-
-
 }
 </style>

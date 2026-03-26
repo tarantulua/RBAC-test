@@ -6,6 +6,7 @@ import {
   Body,
   Controller,
   Get,
+  ParseIntPipe,
   Post,
   Session,
   UnauthorizedException,
@@ -19,7 +20,7 @@ export class AuthController {
 
   @Post('select')
   async selectUser(
-    @Body('userId') userId: number,
+    @Body('userId', ParseIntPipe) userId: number,
     @Session() session: UserSession,
   ) {
     if (userId == null) {

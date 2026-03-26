@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectOption } from "../types/common";
+import type { SelectOption } from "../../types/common";
 
 interface SelectProps {
   id?: string;
@@ -19,7 +19,7 @@ const {
   size = "md",
 } = defineProps<SelectProps>();
 
-const model = defineModel<string | number>();
+const model = defineModel<string | number | null>();
 </script>
 
 <template>
